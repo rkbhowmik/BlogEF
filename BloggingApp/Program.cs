@@ -43,15 +43,17 @@ namespace BloggingApp
 		private static void ListOfBlogsAndPost()
 		{
 			BlogList();
-			Console.Write("Type a blog's name to see its title and content: ");
+			Console.Write("\tType a blog's name to see its title and content: ");
 			var blogName = Console.ReadLine();
 			var blog = db.Blog.SingleOrDefault(aBlog => aBlog.Name == blogName);
-			String s = String.Format("{0,6} {1,15} {2,50} \n\n", "Blog Name", "Title", "Content");
+			String s = String.Format("{0,6} {1,20} {2,40} \n\n", "Blog Name", "Title", "Content");
 			foreach (var aPost in db.Post.Where(post => post.Blog.Id == blog.Id))
 			{
 				Console.WriteLine("");
-				s += String.Format("{0,6} {1,15} {2,50} \n\n", blogName, aPost.Title, aPost.Content);
+				s += String.Format("{0,6} {1,20} {2,50} \n\n", blogName, aPost.Title, aPost.Content);
 				Console.WriteLine(s);
+				
+				Console.WriteLine("");
 			}
 		}
 
@@ -68,6 +70,7 @@ namespace BloggingApp
 			db.Post.Add(new Post {Title = aTitle, Content = aContent, Blog = blog});
 			db.SaveChanges();
 			Console.WriteLine("");
+		
 		}
 
 		private static void BlogList()
@@ -96,7 +99,8 @@ namespace BloggingApp
 			Console.WriteLine("3. Create new post");
 			Console.WriteLine("4. List of items");
 			Console.WriteLine("5. Quit");
-			Console.WriteLine("");
+			
+			
 		}
 	}
 }
